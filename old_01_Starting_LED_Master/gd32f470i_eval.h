@@ -1,0 +1,21 @@
+#ifndef GD32F470I_EVAL_H
+#define GD32F470I_EVAL_H
+
+#include "gd32f4xx.h"
+
+// LED
+#define LEDn 3U
+
+#define LED1_GPIO_CLK RCU_GPIOE
+#define LED2_GPIO_CLK RCU_GPIOE
+#define LED3_GPIO_CLK RCU_GPIOF
+
+#define LED1_GPIO_PORT GPIOE
+#define LED2_GPIO_PORT GPIOE
+#define LED3_GPIO_PORT GPIOF
+
+#define LED1_PIN GPIO_PIN_2
+#define LED2_PIN GPIO_PIN_3
+#define LED3_PIN GPIO_PIN_10
+
+#endif
