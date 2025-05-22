@@ -50,6 +50,57 @@
 
 
 
+## 07_ADC_Temperature_Vrefint
+
+1. The data receiving area of the serial port debugging tool displays the temperature, internal reference voltage and external battery voltage values every two seconds.
+
+(Loop execution)
+
+
+
+**Formula:**
+
+- Temperature:
+  $$
+  Temperature(^\circ\text{C})=\frac{V_{25^\circ\text{C}}-V_{sensor}}{AvgSlope}+25
+  $$
+
+  |       Parameter        |                         Explanation                          |
+  | :--------------------: | :----------------------------------------------------------: |
+  | $V_{25^\circ\text{C}}$ | Voltage value corresponding to the temperature sensor at $25^\circ\text{C}$ |
+  |      $V_{sensor}$      |    Voltage value corresponding to the temperature sensor     |
+  |       $AvgSlope$       |     Average slope of the $Temperature-V_{sensor}$ curve      |
+
+  
+
+- Internal reference voltage:
+  $$
+  V=\frac{ADC_{value}*V_{reference}}{2^{bits}-1}
+  $$
+
+  |    Parameter    |      Explanation      |
+  | :-------------: | :-------------------: |
+  |  $ADC_{value}$  | ADC measurement value |
+  | $V_{reference}$ | ADC reference voltage |
+  |     $bits$      |    ADC bit number     |
+
+  
+
+- External battery voltage:
+  $$
+  V=\frac{ADC_{value}*V_{reference}}{2^{bits}-1}*ClkDiv
+  $$
+
+  |    Parameter    |       Explanation        |
+  | :-------------: | :----------------------: |
+  |  $ADC_{value}$  |  ADC measurement value   |
+  | $V_{reference}$ |  ADC reference voltage   |
+  |     $bits$      |      ADC bit number      |
+  |    $ClkDiv$     | Clock frequency division |
+
+
+
+
 ## 24_TLI_IPA
 
 1. The LCD displays a running leopard with the logo of GigaDevice as the background.
