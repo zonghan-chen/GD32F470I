@@ -61,36 +61,33 @@
 **Formula:**
 
 - Temperature:
-  $$
-  Temperature(^\circ\text{C})=\frac{V_{25^\circ\text{C}}-V_{sensor}}{AvgSlope}+25
-  $$
-
+  
+  $Temperature(^\circ\text{C})=\frac{V_{25^\circ\text{C}}-V_{sensor}}{AvgSlope}+25$
+  
   |       Parameter        |                         Explanation                          |
   | :--------------------: | :----------------------------------------------------------: |
   | $V_{25^\circ\text{C}}$ | Voltage value corresponding to the temperature sensor at $25^\circ\text{C}$ |
   |      $V_{sensor}$      |    Voltage value corresponding to the temperature sensor     |
   |       $AvgSlope$       |     Average slope of the $Temperature-V_{sensor}$ curve      |
-
   
-
+  
+  
 - Internal reference voltage:
-  $$
-  V=\frac{ADC_{value}*V_{reference}}{2^{bits}-1}
-  $$
-
+  
+  $V=\frac{ADC_{value}*V_{reference}}{2^{bits}-1}$
+  
   |    Parameter    |      Explanation      |
   | :-------------: | :-------------------: |
   |  $ADC_{value}$  | ADC measurement value |
   | $V_{reference}$ | ADC reference voltage |
   |     $bits$      |    ADC bit number     |
-
   
-
+  
+  
 - External battery voltage:
-  $$
-  V=\frac{ADC_{value}*V_{reference}}{2^{bits}-1}*ClkDiv
-  $$
-
+  
+  $V=\frac{ADC_{value}*V_{reference}}{2^{bits}-1}*ClkDiv$
+  
   |    Parameter    |       Explanation        |
   | :-------------: | :----------------------: |
   |  $ADC_{value}$  |  ADC measurement value   |
