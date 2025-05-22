@@ -62,19 +62,21 @@
 
 - Temperature:
   
-  $Temperature(^\circ\text{C})=\frac{V_{25^\circ\text{C}}-V_{sensor}}{AvgSlope}+25$
+  $Temperature(^\circ\text{C})=\frac{V_{25^\circ\text{C}}-V_{SENSE}}{AvgSlope}+25$
   
   |       Parameter        |                         Explanation                          |
   | :--------------------: | :----------------------------------------------------------: |
   | $V_{25^\circ\text{C}}$ | Voltage value corresponding to the temperature sensor at $25^\circ\text{C}$ |
-  |      $V_{sensor}$      |    Voltage value corresponding to the temperature sensor     |
-  |       $AvgSlope$       |     Average slope of the $Temperature-V_{sensor}$ curve      |
+  |      $V_{SENSE}$       |    Voltage value corresponding to the temperature sensor     |
+  |       $AvgSlope$       |      Average slope of the $Temperature-V_{SENSE}$ curve      |
   
   
   
-- Internal reference voltage:
+- Internal reference voltage ($V_{REFINT}$) / Temperature sensor voltage ($V_{SENSE}$) :
   
-  $V=\frac{ADC_{value}*V_{reference}}{2^{bits}-1}$
+  $V_{REFINT}=\frac{ADC_{value}*V_{reference}}{2^{bits}-1}$
+  
+  $V_{SENSE}=\frac{ADC_{value}*V_{reference}}{2^{bits}-1}$
   
   |    Parameter    |      Explanation      |
   | :-------------: | :-------------------: |
@@ -84,9 +86,9 @@
   
   
   
-- External battery voltage:
+- External battery voltage ($V_{BAT}$) :
   
-  $V=\frac{ADC_{value}*V_{reference}}{2^{bits}-1}*ClkDiv$
+  $V_{BAT}=\frac{ADC_{value}*V_{reference}}{2^{bits}-1}*ClkDiv$
   
   |    Parameter    |       Explanation        |
   | :-------------: | :----------------------: |
