@@ -26,7 +26,7 @@
 ## 04_USART_Printf
 
 1. The data receiving area of the serial port debugging tool displays "USART printf example: please press the Tamper key".
-1. After pressing the Tamper Key, the data receiving area of the serial port debugging tool displays "USART printf example" (repeatable operation).
+2. After pressing the Tamper Key, the data receiving area of the serial port debugging tool displays "USART printf example" (repeatable operation).
 
 
 
@@ -60,7 +60,7 @@
 
 **Formula:**
 
-- Temperature:
+- **Temperature:**
   
   $Temperature(^\circ\text{C})=\frac{V_{25^\circ\text{C}}-V_{SENSE}}{AvgSlope}+25$
   
@@ -72,7 +72,7 @@
   
   
   
-- Internal reference voltage ($V_{REFINT}$) / Temperature sensor voltage ($V_{SENSE}$) :
+- **Internal reference voltage ($V_{REFINT}$) / Temperature sensor voltage ($V_{SENSE}$) :**
   
   $V_{REFINT}=\frac{ADC_{value}*V_{reference}}{2^{bits}-1}$
   
@@ -86,7 +86,7 @@
   
   
   
-- External battery voltage ($V_{BAT}$) :
+- **External battery voltage ($V_{BAT}$) :**
   
   $V_{BAT}=\frac{ADC_{value}*V_{reference}}{2^{bits}-1}*4$
   
@@ -97,6 +97,21 @@
   |     $bits$      |    ADC bit number     |
   
   - There is a bridge divider by 4 integrated on the $V_{BAT}$ pin, it connects $V_{BAT}/4$ to the ADC_IN18 input channel. Therefore, the converted digital value of ADC_IN18 input channel is $V_{BAT}/4$.
+
+
+
+## 08_ADC0_ADC1_Follow_Up_Mode
+
+**The working principle of the TIMER Prescaler and Auto-Reload Register:**
+
+- **Prescaler:**
+  - **Hardware design logic:** A prescaler is a counter that starts counting from zero to the set prescaler value, then returns to zero and generates a pulse.
+  - **Configuration method:** If the frequency division coefficient is required to be $N$, the value of `timer_oc_parameter_struct.prescaler` should be set to $N-1$.
+- **Auto-Reload Register (APR) :**
+  - **Role:**
+    - Determine the overflow period of the timer.
+    - The timer starts counting from zero and increments by one for each received clock pulse. When the count reaches the value of ARR, the timer overflows and triggers an interrupt or updates an event, then starts counting from zero again.
+  - **Configuration method:** If the timer overflow period is required to be $N$, the value of `timer_oc_parameter_struct.period` should be set to $N-1$.
 
 
 
@@ -126,5 +141,5 @@
 ## old_03_Key_External_Interrupt_Mode
 
 1. Light up LED 1.
-1. Press the Tamper Key to switch the LED 2 on/off state.
+2. Press the Tamper Key to switch the LED 2 on/off state.
 
