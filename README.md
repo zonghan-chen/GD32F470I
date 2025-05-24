@@ -30,6 +30,23 @@
 
 
 
+**Retarget the C library printf function to the USART:**
+
+```c
+int fputc(int ch, FILE *f)
+{
+	usart_data_transmit(EVAL_COM0, (uint8_t)ch);
+
+	while (usart_flag_get(EVAL_COM0, USART_FLAG_TBE) == RESET)
+	{
+	}
+
+	return ch;
+}
+```
+
+
+
 ## 05_USART_Echo_Interrupt_Mode
 
 1. LED 1, LED 2 and LED 3 flash three times for test.
@@ -102,7 +119,7 @@
 
 ## 08_ADC0_ADC1_Follow_Up_Mode
 
-1. The data receiving area of the serial port debugging tool displays the regular value of ADC0 and ADC1 by adc_value[0] and adc_value[1].
+1. The data receiving area of the serial port debugging tool displays the regular value of ADC0 and ADC1 by adc_value[0] and adc_value[1] every two seconds.
 
 (Loop execution)
 
@@ -126,6 +143,22 @@
 |                                      |          PWM MODE 0          |          PWM MODE 1          |
 | :----------------------------------: | :--------------------------: | :--------------------------: |
 | Condition of output the set polarity | $Value_{CNT}<Value_{preset}$ | $Value_{CNT}>Value_{preset}$ |
+
+
+
+## 09_ADC0_ADC1_Regular_Parallel_Mode
+
+1. The data receiving area of the serial port debugging tool displays the regular value of ADC0 and ADC1 by adc_value[0] and adc_value[1] every two seconds.
+
+(Loop execution)
+
+
+
+**ADC sync mode:**
+
+- **Free mode:** Each ADC works independently and does not interfere with each other.
+- **Routine parallel mode:** All of the ADCs convert the routine sequence parallelly at the selected external trigger of ADC0.
+- **Routine follow-up mode:** ADC0 converts the routine sequence at the selected external trigger. After a delay time, ADC1 converts the routine sequence. After another delay time, ADC2 converts the routine sequence.
 
 
 
