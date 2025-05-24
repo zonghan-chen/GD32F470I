@@ -102,16 +102,30 @@
 
 ## 08_ADC0_ADC1_Follow_Up_Mode
 
+1. The data receiving area of the serial port debugging tool displays the regular value of ADC0 and ADC1 by adc_value[0] and adc_value[1].
+
+(Loop execution)
+
+
+
 **The working principle of the TIMER Prescaler and Auto-Reload Register:**
 
 - **Prescaler:**
   - **Hardware design logic:** A prescaler is a counter that starts counting from zero to the set prescaler value, then returns to zero and generates a pulse.
-  - **Configuration method:** If the frequency division coefficient is required to be $N$, the value of `timer_oc_parameter_struct.prescaler` should be set to $N-1$.
+  - **Configuration method:** If the frequency division coefficient is required to be $N$, the value of `timer_parameter_struct.prescaler` should be set to $N-1$.
 - **Auto-Reload Register (APR) :**
   - **Role:**
     - Determine the overflow period of the timer.
     - The timer starts counting from zero and increments by one for each received clock pulse. When the count reaches the value of ARR, the timer overflows and triggers an interrupt or updates an event, then starts counting from zero again.
-  - **Configuration method:** If the timer overflow period is required to be $N$, the value of `timer_oc_parameter_struct.period` should be set to $N-1$.
+  - **Configuration method:** If the timer overflow period is required to be $N$, the value of `timer_parameter_struct.period` should be set to $N-1$.
+
+
+
+**PWM output mode:**
+
+|                                      |          PWM MODE 0          |          PWM MODE 1          |
+| :----------------------------------: | :--------------------------: | :--------------------------: |
+| Condition of output the set polarity | $Value_{CNT}<Value_{preset}$ | $Value_{CNT}>Value_{preset}$ |
 
 
 
