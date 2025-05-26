@@ -23,6 +23,13 @@
 
 
 
+**External interrupt handler:**
+
+- All of the external interrupt handlers are only declared but not defined.
+- When using an external interrupt, the corresponding external interrupt handler needs to be defined manually.
+
+
+
 ## 04_USART_Printf
 
 1. The data receiving area of the serial port debugging tool displays "USART printf example: please press the Tamper key".
@@ -159,6 +166,38 @@ int fputc(int ch, FILE *f)
 - **Free mode:** Each ADC works independently and does not interfere with each other.
 - **Routine parallel mode:** All of the ADCs convert the routine sequence parallelly at the selected external trigger of ADC0.
 - **Routine follow-up mode:** ADC0 converts the routine sequence at the selected external trigger. After a delay time, ADC1 converts the routine sequence. After another delay time, ADC2 converts the routine sequence.
+
+
+
+## 10_DAC_Output_Voltage_Value
+
+1. Use the jumper cap JP23 to jumper to the DAC.
+2. LED 1, LED 2 and LED 3 flash three times for test.
+3. Use the voltmeter measure PA4 or DAC_OUT0 on JP7, its value is $1.65V$.
+
+
+
+**DAC data configuration:**
+
+|  Data alignment mode  |   Effective bits   |
+| :-------------------: | :----------------: |
+| 8-bits right aligned  |  lower eight bits  |
+| 12-bits right aligned | lower twelve bits  |
+| 12-bits left aligned  | higher twelve bits |
+
+
+
+**Formula:**
+
+- **DAC output voltage ($V_{DAC}$) :**
+
+  $V_{DAC}=\frac{DAC_{value}*V_{REFP}}{2^{bits}}$
+
+  |   Parameter   |                Explanation                |
+  | :-----------: | :---------------------------------------: |
+  | $DAC_{value}$ | The value of the DAC data output register |
+  |  $V_{REFP}$   |     Positive reference voltage of DAC     |
+  |    $bits$     |              DAC bit number               |
 
 
 
