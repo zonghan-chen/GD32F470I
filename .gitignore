@@ -1,0 +1,6 @@
+# LaTeX临时文件
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
