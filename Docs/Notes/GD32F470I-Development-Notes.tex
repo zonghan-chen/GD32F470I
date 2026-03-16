@@ -1,0 +1,80 @@
+\documentclass[12pt,a4paper]{ctexart}
+
+\usepackage{geometry}
+\geometry{top=2.54cm,bottom=2.54cm,left=3.18cm,right=3.18cm}
+
+\usepackage{enumitem}
+\setlist{noitemsep}
+
+\title{GD32F470I Development Notes}
+\author{Zonghan Chen}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+\tableofcontents
+
+\newpage
+\section{Firmware Code Reproduction}
+
+\subsection{01 GPIO Running LED}
+
+\begin{enumerate}
+    \item Light up LED 1 and turn off LED 3 (hold for 1 second).
+    \item Light up LED 2 and turn off LED 1 (hold for 1 second).
+    \item Light up LED 3 and turn off LED 2 (hold for 1 second).
+          
+          (Loop execution)
+\end{enumerate}
+
+\textbf{GPIO modes:}
+\begin{itemize}
+    \item \textbf{Pull-up Input:} The internal pull-up resistor pulls the default level to high.
+    \item \textbf{Pull-down Input:} The internal pull-down resistor pulls the default level to low.
+    \item \textbf{Floating Input:}
+          \begin{itemize}
+              \item The pin level is determined by the external circuit.
+              \item There is no internal pull-up/pull-down resistor.
+          \end{itemize}
+    \item \textbf{Analog Input:}
+          \begin{itemize}
+              \item The pin is directly connected to the ADC.
+              \item This mode is often used for analog signal acquisition.
+          \end{itemize}
+    \item \textbf{Open-Drain Output:}
+          \begin{itemize}
+              \item The pin can only output low level or high impedance state.
+              \item Require an external pull-up resistor for high level output.
+          \end{itemize}
+    \item \textbf{Push-Pull Output:}
+          \begin{itemize}
+              \item The pin can actively output high level or low level.
+              \item This mode is suitable for digital signal output.
+          \end{itemize}
+    \item \textbf{Alternate Function Open-Drain:} Open-drain mode controlled by an on-chip peripheral.
+    \item \textbf{Alternate Function Push-Pull:} Push-pull mode controlled by an on-chip peripheral.
+\end{itemize}
+
+\subsection{02 GPIO Key Polling Mode}
+
+\begin{enumerate}
+    \item Press the Tamper Key to switch the LED 2 on/off state.
+\end{enumerate}
+
+\subsection{03 EXTI Key Interrupt Mode}
+
+\begin{enumerate}
+    \item LED 2 flashes once for test.
+    \item Press the Tamper Key to switch the LED 2 on/off state.
+\end{enumerate}
+
+\textbf{External interrupt handler:}
+\begin{itemize}
+    \item All of the external interrupt handlers are only declared but not defined.
+    \item When using an external interrupt, the corresponding external interrupt handler needs to be defined manually.
+\end{itemize}
+
+\end{document}
