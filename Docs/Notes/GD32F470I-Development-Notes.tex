@@ -1,10 +1,22 @@
 \documentclass[12pt,a4paper]{ctexart}
 
 \usepackage{geometry}
-\geometry{top=2.54cm,bottom=2.54cm,left=3.18cm,right=3.18cm}
+\geometry{
+    top=2.54cm,
+    bottom=2.54cm,
+    left=3.18cm,
+    right=3.18cm
+}
 
 \usepackage{enumitem}
 \setlist{noitemsep}
+
+\usepackage{minted}
+\setminted{
+    fontsize=\small,
+    frame=single,
+    linenos=true
+}
 
 \title{GD32F470I Development Notes}
 \author{Zonghan Chen}
@@ -76,6 +88,47 @@
     \item All of the external interrupt handlers are only declared but not defined.
     \item When using an external interrupt, the corresponding external interrupt handler needs to be defined manually.
 \end{itemize}
+
+\subsection{04 USART Printf}
+
+\begin{enumerate}
+    \item The data receiving area of the serial port debugging tool displays "USART printf example: please press the Tamper key".
+    \item After pressing the Tamper Key, the data receiving area of the serial port debugging tool displays "USART printf example" (repeatable operation).
+\end{enumerate}
+
+\textbf{Retarget the C library printf function to the USART:}
+\begin{minted}{c}
+int fputc(int ch, FILE *f)
+{
+    usart_data_transmit(EVAL_COM0, (uint8_t)ch);
+
+    while (usart_flag_get(EVAL_COM0, USART_FLAG_TBE) == RESET)
+    {
+    }
+
+    return ch;
+}
+\end{minted}
+
+\subsection{05 USART Echo Interrupt Mode}
+
+\begin{enumerate}
+    \item LED 1, LED 2 and LED 3 flash three times for test.
+    \item The data receiving area of the serial port debugging tool displays the data in the tx\_buffer array.
+    \item Send the data in data.txt to the rx\_buffer array through the data sending area of the serial port debugging tool.
+    \item If the data in tx\_buffer array and rx\_buffer array are the same, all the LEDs will light up successively and then turn off simultaneously (loop execution).
+    \item Else if the data in tx\_buffer array and rx\_buffer array are different, all the LEDs will flash three times (loop execution).
+\end{enumerate}
+
+\subsection{06 USART DMA}
+
+\begin{enumerate}
+    \item LED 1, LED 2 and LED 3 flash three times for test.
+    \item The data receiving area of the serial port debugging tool displays the data in the tx\_buffer array.
+    \item Send the data in data.txt to the rx\_buffer array through the data sending area of the serial port debugging tool.
+    \item If the data in tx\_buffer array and rx\_buffer array are the same, all the LEDs will light up successively and then turn off simultaneously (loop execution).
+    \item Else if the data in tx\_buffer array and rx\_buffer array are different, all the LEDs will flash three times (loop execution).
+\end{enumerate}
 
 \subsection{old 01 Starting LED Master}
 
