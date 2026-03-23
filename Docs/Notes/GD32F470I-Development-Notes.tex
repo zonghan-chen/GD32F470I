@@ -218,6 +218,51 @@ int fputc(int ch, FILE *f)
           \end{itemize}
 \end{itemize}
 
+\subsection{08 ADC0 ADC1 Follow Up Mode}
+
+\begin{enumerate}
+    \item The data receiving area of the serial port debugging tool displays the regular value of ADC0 and ADC1 by adc\_value[0] and adc\_value[1] every two seconds.
+          
+          (Loop execution)
+\end{enumerate}
+
+\textbf{The working principle of the TIMER Prescaler and Auto-Reload Register:}
+\begin{itemize}
+    \item \textbf{Prescaler:}
+          \begin{itemize}
+              \item \textbf{Hardware design logic:} A prescaler is a counter that starts counting from zero to the set prescaler value, then returns to zero and generates a pulse.
+              \item \textbf{Configuration method:} If the frequency division coefficient is required to be $N$, the value of \verb|timer_parameter_struct.prescaler| should be set to $N-1$.
+          \end{itemize}
+    \item \textbf{Auto-Reload Register (APR) :}
+          \begin{itemize}
+              \item \textbf{Role:}
+                    \begin{itemize}
+                        \item Determine the overflow period of the timer.
+                        \item The timer starts counting from zero and increments by one for each received clock pulse. When the count reaches the value of ARR, the timer overflows and triggers an interrupt or updates an event, then starts counting from zero again.
+                    \end{itemize}
+              \item \textbf{Configuration method:} If the timer overflow period is required to be $N$, the value of \verb|timer_parameter_struct.period| should be set to $N-1$.
+          \end{itemize}
+\end{itemize}
+
+\textbf{PWM output mode:}
+\begin{table}[htbp]
+    \centering
+    \caption{PWM Output Mode}
+    \begin{tabular}{|c|c|c|}
+        \hline
+                                             & PWM MODE 0                   & PWM MODE 1                   \\
+        \hline
+        Condition of output the set polarity & $Value_{CNT}<Value_{preset}$ & $Value_{CNT}>Value_{preset}$ \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{24 TLI IPA}
+
+\begin{enumerate}
+    \item The LCD displays a running leopard with the logo of GigaDevice as the background.
+\end{enumerate}
+
 \subsection{old 01 Starting LED Master}
 
 \begin{enumerate}
