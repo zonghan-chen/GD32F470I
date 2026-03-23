@@ -18,6 +18,12 @@
     linenos=true
 }
 
+\usepackage{amsmath}
+
+\renewcommand{\contentsname}{Contents}
+\renewcommand{\listtablename}{List of Tables}
+\renewcommand{\tablename}{Table}
+
 \title{GD32F470I Development Notes}
 \author{Zonghan Chen}
 \date{}
@@ -28,6 +34,9 @@
 
 \newpage
 \tableofcontents
+
+\newpage
+\listoftables
 
 \newpage
 \section{Firmware Code Reproduction}
@@ -129,6 +138,85 @@ int fputc(int ch, FILE *f)
     \item If the data in tx\_buffer array and rx\_buffer array are the same, all the LEDs will light up successively and then turn off simultaneously (loop execution).
     \item Else if the data in tx\_buffer array and rx\_buffer array are different, all the LEDs will flash three times (loop execution).
 \end{enumerate}
+
+\subsection{07 ADC Temperature Vrefint}
+
+\begin{enumerate}
+    \item The data receiving area of the serial port debugging tool displays the temperature, internal reference voltage and external battery voltage values every two seconds.
+          
+          (Loop execution)
+\end{enumerate}
+
+\textbf{Formula:}
+\begin{itemize}
+    \item \textbf{Temperature:}
+          \begin{equation}
+              Temperature(^\circ\text{C})=\frac{V_{25^\circ\text{C}}-V_{SENSE}}{AvgSlope}+25
+              \label{eq:Temperature}
+          \end{equation}
+          \begin{table}[htbp]
+              \centering
+              \caption{Parameters in Equation \eqref{eq:Temperature}}
+              \begin{tabular}{|c|c|}
+                  \hline
+                  Parameter              & Explanation                                                           \\
+                  \hline
+                  $V_{25^\circ\text{C}}$ & Internal temperature sensor output voltage at $25^\circ\text{C}$      \\
+                  \hline
+                  $V_{SENSE}$            & Internal temperature sensor output voltage at the current temperature \\
+                  \hline
+                  $AvgSlope$             & Average slope of the $Temperature-V_{SENSE}$ curve                    \\
+                  \hline
+              \end{tabular}
+          \end{table}
+    \item \textbf{Internal reference voltage ($V_{REFINT}$) / Temperature sensor voltage ($V_{SENSE}$) :}
+          \begin{equation}
+              V_{REFINT}=\frac{ADC_{value}*V_{reference}}{2^{bits}-1}
+              \label{eq:Internal-reference-voltage}
+          \end{equation}
+          \begin{equation}
+              V_{SENSE}=\frac{ADC_{value}*V_{reference}}{2^{bits}-1}
+              \label{eq:Temperature-sensor-voltage}
+          \end{equation}
+          \begin{table}[htbp]
+              \centering
+              \caption{Parameters in Equation \eqref{eq:Internal-reference-voltage} and \eqref{eq:Temperature-sensor-voltage}}
+              \begin{tabular}{|c|c|}
+                  \hline
+                  Parameter       & Explanation           \\
+                  \hline
+                  $ADC_{value}$   & ADC measurement value \\
+                  \hline
+                  $V_{reference}$ & ADC reference voltage \\
+                  \hline
+                  $bits$          & ADC bit number        \\
+                  \hline
+              \end{tabular}
+          \end{table}
+    \item \textbf{External battery voltage ($V_{BAT}$) :}
+          \begin{equation}
+              V_{BAT}=\frac{ADC_{value}*V_{reference}}{2^{bits}-1}*4
+              \label{eq:External-battery-voltage}
+          \end{equation}
+          \begin{table}[htbp]
+              \centering
+              \caption{Parameters in Equation \eqref{eq:External-battery-voltage}}
+              \begin{tabular}{|c|c|}
+                  \hline
+                  Parameter       & Explanation           \\
+                  \hline
+                  $ADC_{value}$   & ADC measurement value \\
+                  \hline
+                  $V_{reference}$ & ADC reference voltage \\
+                  \hline
+                  $bits$          & ADC bit number        \\
+                  \hline
+              \end{tabular}
+          \end{table}
+          \begin{itemize}
+              \item There is a bridge divider by 4 integrated on the $V_{BAT}$ pin, it connects $V_{BAT}/4$ to the ADC\_IN18 input channel. Therefore, the converted digital value of ADC\_IN18 input channel is $V_{BAT}/4$.
+          \end{itemize}
+\end{itemize}
 
 \subsection{old 01 Starting LED Master}
 
