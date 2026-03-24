@@ -257,6 +257,21 @@ int fputc(int ch, FILE *f)
     \end{tabular}
 \end{table}
 
+\subsection{09 ADC0 ADC1 Regular Parallel Mode}
+
+\begin{enumerate}
+    \item The data receiving area of the serial port debugging tool displays the regular value of ADC0 and ADC1 by adc\_value[0] and adc\_value[1] every two seconds.
+          
+          (Loop execution)
+\end{enumerate}
+
+\textbf{ADC sync mode:}
+\begin{itemize}
+    \item \textbf{Free mode:} Each ADC works independently and does not interfere with each other.
+    \item \textbf{Routine parallel mode:} All of the ADCs convert the routine sequence parallelly at the selected external trigger of ADC0.
+    \item \textbf{Routine follow-up mode:} ADC0 converts the routine sequence at the selected external trigger. After a delay time, ADC1 converts the routine sequence. After another delay time, ADC2 converts the routine sequence.
+\end{itemize}
+
 \subsection{24 TLI IPA}
 
 \begin{enumerate}
