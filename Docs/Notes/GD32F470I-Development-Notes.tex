@@ -272,6 +272,55 @@ int fputc(int ch, FILE *f)
     \item \textbf{Routine follow-up mode:} ADC0 converts the routine sequence at the selected external trigger. After a delay time, ADC1 converts the routine sequence. After another delay time, ADC2 converts the routine sequence.
 \end{itemize}
 
+\subsection{10 DAC Output Voltage Value}
+
+\begin{enumerate}
+    \item Use the jumper cap JP23 to jumper to the DAC.
+    \item LED 1, LED 2 and LED 3 flash three times for test.
+    \item Use the voltmeter measure PA4 or DAC\_OUT0 on JP7, its value is $1.65V$.
+\end{enumerate}
+
+\textbf{DAC data configuration:}
+\begin{table}[htbp]
+    \centering
+    \caption{DAC Data Configuration}
+    \begin{tabular}{|c|c|}
+        \hline
+        Data alignment mode   & Effective bits     \\
+        \hline
+        8-bits right aligned  & lower eight bits   \\
+        \hline
+        12-bits right aligned & lower twelve bits  \\
+        \hline
+        12-bits left aligned  & higher twelve bits \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Formula:}
+\begin{itemize}
+    \item \textbf{DAC output voltage ($V_{DAC}$) :}
+          \begin{equation}
+              V_{DAC}=\frac{DAC_{value}*V_{REFP}}{2^{bits}}
+              \label{eq:DAC-output-voltage}
+          \end{equation}
+          \begin{table}[htbp]
+              \centering
+              \caption{Parameters in Equation \eqref{eq:DAC-output-voltage}}
+              \begin{tabular}{|c|c|}
+                  \hline
+                  Parameter     & Explanation                               \\
+                  \hline
+                  $DAC_{value}$ & The value of the DAC data output register \\
+                  \hline
+                  $V_{REFP}$    & Positive reference voltage of DAC         \\
+                  \hline
+                  $bits$        & DAC bit number                            \\
+                  \hline
+              \end{tabular}
+          \end{table}
+\end{itemize}
+
 \subsection{24 TLI IPA}
 
 \begin{enumerate}
